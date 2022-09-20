@@ -25,7 +25,7 @@ export function Home() {
   useEffect(() => {
     async function loadGames() {
       try {
-        const response = await fetch('http://<windows ip>:3333/games')
+        const response = await fetch(`http://${process.env.WINDOWSIP}:3333/games`)
         const games = await response.json()
 
         setGames(games)

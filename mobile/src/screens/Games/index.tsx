@@ -16,6 +16,7 @@ import { THEME } from '../../theme';
 import { Heading } from '../../components/Heading';
 import { DuoCard } from '../../components/DuoCard';
 import { useEffect, useState } from 'react';
+import { DuoMathModal } from '../../components/DuoMathModal';
 
 export interface DuoCardProps {
   id: string,
@@ -32,6 +33,7 @@ export interface DuoCardProps {
 export function Games() {
 
   const [ads, setAds] = useState<DuoCardProps[]>()
+  const [isOpenModal, setIsOpenModal] = useState('')
 
   const route = useRoute()
   const game = route.params as GameParms
@@ -42,11 +44,22 @@ export function Games() {
     navigation.goBack()
   }
 
+  async function getDiscordAds(adsId: string) {
+    try {
+      const response = await fetch(`http://${process.env.WINDOWSIP}:3333/ads/${adsId}/discord`)
+      const data = await response.json()
+
+      setIsOpenModal(data.discord)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   useEffect(() => {
     async function loadGames() {
       try {
-        const response = await fetch(`http://<windows ip>:3333/games/${game.id}/ads`)
+        const response = await fetch(`http://${process.env.WINDOWSIP}:3333/games/${game.id}/ads`)
         const data = await response.json() as DuoCardProps[]
 
         setAds(data)
@@ -104,7 +117,7 @@ export function Games() {
           renderItem={({ item }) => {
             return (
               <DuoCard
-                onConnect={() => { }}
+                onConnect={() => getDiscordAds(item.id)}
                 {...item}
               />
             )
@@ -118,8 +131,13 @@ export function Games() {
           )}
         />
 
-
+        <DuoMathModal
+          visible={isOpenModal === '' ? false : true}
+          discord={isOpenModal}
+          closeModal={() => setIsOpenModal('')}
+        />
       </SafeAreaView>
+
     </Background>
 
   );

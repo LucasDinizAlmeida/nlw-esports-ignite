@@ -26,7 +26,7 @@ app.get('/games', async (req, res) => {
   return res.json(games)
 })
 
-app.post('/game/:id/ads', async (req, res) => {
+app.post('/games/:id/ads', async (req, res) => {
   const gameId = req.params.id
   const newAd = req.body
 
@@ -43,7 +43,7 @@ app.post('/game/:id/ads', async (req, res) => {
     }
   })
 
-  return res.json(ad)
+  return res.send({ status: 'ok' })
 })
 
 app.get('/games/:id/ads', async (req, res) => {
