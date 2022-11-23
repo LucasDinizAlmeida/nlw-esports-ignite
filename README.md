@@ -66,7 +66,7 @@ Você pode visualizar o layout do projeto através do link abaixo:
 
    <ul> 
     <li><b>Clonar o repositório na pasta desejada:</li></b>
-    <code> git clone git@github.com:LucasDinizAlmeida/rentx.git</code>
+    <code> git@github.com:LucasDinizAlmeida/nlw-esports-ignite.git</code>
    </ul>
    <ul> 
     <li><b>Instalar bibliotecas do projeto utilizando o comando:</li></b>
